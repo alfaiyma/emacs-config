@@ -54,9 +54,9 @@
 ;; they are implemented.
 (after! org
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "IN PROGRESS(i)" "BLOCKED(b)" "|" "FINISHED(f)" "KILL(k)"))
+        '((sequence "TODO(t)" "IN PROGRESS(i)" "REVIEW(r)" "BLOCKED(b)" "|" "FINISHED(f)" "KILL(k)"))
         )
   (setq org-todo-keyword-faces
-        '(("IN PROGRESS" . "purple") ("BLOCKED" . (:foreground "red" :weight bold :color "black")))
+        '(("IN PROGRESS" . "purple") ("REVIEW" . (:weight bold :foreground "#00bfff")) ("BLOCKED" . (:foreground "red" :weight bold :color "black")))
         )
   )
