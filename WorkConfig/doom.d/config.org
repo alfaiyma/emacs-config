@@ -1,13 +1,13 @@
 #+TITLE: Config File for DOOM Emacs
 #+PROPERTY: header-args :tangle config.el
-
+#+STARTUP: overview
 
 * DOOM Settings
 - Configuring Some DOOM settings
   + Email env var is =GIT_EMAIL= and name is =GIT_NAME=
     #+BEGIN_SRC emacs-lisp
     (setq user-mail-address (getenv "GIT_EMAIL")
-          user-full-name (getenv "GIT_NAME")
+          user-full-name (getenv "GIT_NAME"))
     #+END_SRC
 - Display Settings
     #+BEGIN_SRC emacs-lisp
@@ -34,21 +34,36 @@
     (setq display-line-numbers-type t)
     #+END_SRC
 * Org Mode Settings
+- after loading =org=
+  #+begin_src emacs-lisp
+  (after! org
+  #+end_src
 - env var is =ORG_LOCATION= to set the org location
-  #+BEGIN_SRC emacs-lisp :var ORG_LOCATION=(getenv "ORG_LOCATION")
+  #+BEGIN_SRC emacs-lisp
   ;; If you use `org' and don't want your org files in the default location below,
   ;; change `org-directory'. It must be set before org loads!
-  (setq org-directory "${ORG_LOCATION}")
+  (setq org-directory (getenv "ORG_LOCATION"))
   #+END_SRC
-- Configure ORG mode settings
-  + Org mode key words
-      #+BEGIN_SRC emacs-lisp
-      (after! org
-        (setq org-todo-keywords
-              '((sequence "TODO(t)" "IN PROGRESS(i)" "REVIEW(r)" "ON HOLD(h)" "BLOCKED(b)" "|" "FINISHED(f)" "KILL(k)"))
-              )
-        (setq org-todo-keyword-faces
-              '(("IN PROGRESS" . "purple") ("ON HOLD" . "orange") ("REVIEW" . (:weight bold :foreground "#00bfff")) ("BLOCKED" . (:foreground "red" :weight bold :color "black")))
-              )
-        )
-      #+END_SRC
+- Org mode key words
+    #+BEGIN_SRC emacs-lisp
+    (setq org-todo-keywords
+          '((sequence "TODO(t)" "IN PROGRESS(i)" "REVIEW(r)" "ON HOLD(h)" "BLOCKED(b)" "|" "FINISHED(f)" "KILL(k)"))
+          )
+    (setq org-todo-keyword-faces
+          '(("IN PROGRESS" . "purple") ("ON HOLD" . "orange") ("REVIEW" . (:weight bold :foreground "#00bfff")) ("BLOCKED" . (:foreground "red" :weight bold :color "black")))
+          )
+    #+END_SRC
+- Src code indentation
+  So that things line up
+  #+begin_src emacs-lisp
+    (setq org-src-preserve-indentation nil
+              org-edit-src-content-indentation 0)
+  #+end_src
+- Hide src code blocks (performance issues)
+  #+begin_src emacs-lisp
+(add-hook 'org-mode-hook 'org-hide-block-all)
+  #+end_src
+- Finish settings
+#+begin_src emacs-lisp
+  )
+#+end_src
